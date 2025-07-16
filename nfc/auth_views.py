@@ -7,16 +7,15 @@ from rest_framework import status
 import re
 
 def is_password_strong(password):
-    # Mindestens 8 Zeichen, mindestens 1 Zahl, 1 Großbuchstabe und 1 Sonderzeichen
     if len(password) < 8:
-        return False
-    if not re.search(r"\d", password):  # prüft auf Zahl
-        return False
-    if not re.search(r"[A-Z]", password):  # prüft auf Großbuchstaben
-        return False
-    if not re.search(r"[\W_]", password):  # prüft auf Sonderzeichen
-        return False
-    return True
+        return False, "Passwort muss mindestens 8 Zeichen lang sein"
+    if not re.search(r"\d", password):
+        return False, "Passwort muss mindestens eine Zahl enthalten"
+    if not re.search(r"[A-Z]", password):
+        return False, "Passwort muss mindestens einen Großbuchstaben enthalten"
+    if not re.search(r"[\W_]", password):
+        return False, "Passwort muss mindestens ein Sonderzeichen enthalten"
+    return True, ""
  
 # User Registrierung
 @api_view(['POST'])

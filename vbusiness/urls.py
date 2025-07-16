@@ -1,13 +1,9 @@
-from django.contrib import admin
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-import nfc.views as nfc_views  # 👈 So vermeiden wir den Zirkulären Import
-
-router = DefaultRouter()
-router.register(r'nfc-tags', nfc_views.NFCTagViewSet, basename='nfc-tag')  # 👈 Hier angepasst
-
+from django.urls import path
+from .views import tisch_view, bestellung_absenden, home
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('nfc.urls')),
+    path('', home, name='home'),
+    path('tisch/<int:tisch_id>/', tisch_view, name='tisch_view'),
+    path('tisch/<int:tisch_id>/bestellen/', bestellung_absenden, name='bestellung_absenden'),
+    
 ]

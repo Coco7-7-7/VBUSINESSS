@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'nfc',
     'rest_framework',
     'rest_framework.authtoken',  # Token-Authentifizierung
+    'vbusiness',
 ]
 
 MIDDLEWARE = [

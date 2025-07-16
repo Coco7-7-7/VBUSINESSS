@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Speisekarte – Tisch {{ tisch.nummer }}</title>
+</head>
+<body>
+    <h1>Speisekarte für Tisch {{ tisch.nummer }}</h1>
+    <form method="post" action="{% url 'bestellung_absenden' tisch_id=tisch.id %}">
+        {% csrf_token %}
+        <ul>
+            {% for speise in speisen %}
+            <li>
+                <label>
+                    <input type="checkbox" name="speisen" value="{{ speise.id }}">
+                    <strong>{{ speise.name }}</strong>: {{ speise.beschreibung }} – {{ speise.preis }} €
+                </label>
+            </li>
+            {% empty %}
+            <li>Keine Speisen verfügbar.</li>
+            {% endfor %}
+        </ul>
+        <button type="submit">Bestellung absenden</button>
+    </form>
+    {% if message %}
+        <p style="color: green;">{{ message }}</p>
+    {% endif %}
+</body>
+</html>
